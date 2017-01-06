@@ -19,7 +19,8 @@ defmodule MovieCatalog.Router do
     get "/", PageController, :index
 
     resources "/registrations", RegistrationController, only: [:new, :create]
-
+    resources "/movies", MovieController, only: [:new, :create]
+    
     get    "/login",  SessionController, :new
     post   "/login",  SessionController, :create
     delete "/logout", SessionController, :delete

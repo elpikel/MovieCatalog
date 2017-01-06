@@ -25,7 +25,7 @@
             <li><%= link "LOGIN",    to: "/login" %></li>
             <li><%= link "REGISTER", to: registration_path(@conn, :new) %></li>
           <% end %>
-			    <li><a href="#">ADD MOVIE</a></li>
+			    <li><%= link "ADD MOVIE", to: movie_path(@conn, :new) %></li>
 			</ul>
 		</div>
 		<!-- end Navigation -->

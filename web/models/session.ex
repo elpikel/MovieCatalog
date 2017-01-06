@@ -14,6 +14,8 @@ defmodule MovieCatalog.Session do
     if id, do: MovieCatalog.Repo.get(User, id)
   end
 
+  def current_user_id(conn), do: Plug.Conn.get_session(conn, :current_user)
+  
   def logged_in?(conn), do: !!current_user(conn)
 
   defp authenticate(user, plain_password) do

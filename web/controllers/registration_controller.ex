@@ -18,7 +18,6 @@ defmodule MovieCatalog.RegistrationController do
         |> put_flash(:info, "Your account was created")
         |> redirect(to: "/")
       {:error, changeset} ->
-        IO.inspect changeset
         conn
         |> put_flash(:info, "Unable to create account")
         |> render("new.html", changeset: changeset)

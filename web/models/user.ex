@@ -5,7 +5,8 @@ defmodule MovieCatalog.User do
     field :email, :string
     field :password, :string
     field :plain_password, :string, virtual: true
-
+    has_many :movies, MovieCatalog.Movie
+    
     timestamps()
   end
 
