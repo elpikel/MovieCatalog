@@ -14,6 +14,7 @@ defmodule MovieCatalog.RegistrationController do
     case MovieCatalog.Repo.insert(changeset) do
       {:ok, _changeset} ->
         conn
+        |> put_session(:current_user, changeset.id)
         |> put_flash(:info, "Your account was created")
         |> redirect(to: "/")
       {:error, changeset} ->
