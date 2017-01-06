@@ -52,6 +52,7 @@ defmodule MovieCatalog.Web do
       import MovieCatalog.Router.Helpers
       import MovieCatalog.ErrorHelpers
       import MovieCatalog.Gettext
+      import MovieCatalog.Session, only: [current_user: 1, logged_in?: 1]
     end
   end
 
