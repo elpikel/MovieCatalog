@@ -18,6 +18,7 @@
 			    <li><a class="active" href="#">HOME</a></li>
 			    <li><a href="#">IN THEATERS</a></li>
 			    <li><a href="#">COMING SOON</a></li>
+          <li><%= link "REGISTER", to: registration_path(@conn, :new) %></li>
 			    <li><a href="#">ADD MOVIE</a></li>
 			</ul>
 		</div>
@@ -34,7 +35,7 @@
 			<div id="search">
 				<form action="home_submit" method="get" accept-charset="utf-8">
 					<label for="search-field">SEARCH</label>
-					<input type="text" name="search field" value="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
+					<input type="text" name="search field" placeholder="Enter search here" id="search-field" title="Enter search here" class="blink search-field"  />
 					<input type="submit" value="GO!" class="search-button" />
 				</form>
 			</div>
