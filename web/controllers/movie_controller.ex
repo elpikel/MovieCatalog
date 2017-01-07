@@ -1,6 +1,8 @@
 defmodule MovieCatalog.MovieController do
   use MovieCatalog.Web, :controller
 
+  plug :authenticate when action in [:new, :create]
+
   alias MovieCatalog.Movie
   alias MovieCatalog.Session
 
@@ -28,6 +30,17 @@ defmodule MovieCatalog.MovieController do
         conn
         |> put_flash(:info, "Unable to publish movie")
         |> render("new.html", changeset: changeset)
+    end
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "you must be logged in to access that page")
+      |> redirect(to: page_path(conn, :index))
+      |> halt()
     end
   end
 end

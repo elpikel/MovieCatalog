@@ -7,6 +7,7 @@ defmodule MovieCatalog.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug MovieCatalog.Auth, repo: MovieCatalog.Repo
   end
 
   pipeline :api do
@@ -20,7 +21,7 @@ defmodule MovieCatalog.Router do
 
     resources "/registrations", RegistrationController, only: [:new, :create]
     resources "/movies", MovieController, only: [:new, :create]
-    
+
     get    "/login",  SessionController, :new
     post   "/login",  SessionController, :create
     delete "/logout", SessionController, :delete
