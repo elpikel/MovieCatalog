@@ -36,6 +36,7 @@ defmodule MovieCatalog.Web do
 
       import MovieCatalog.Router.Helpers
       import MovieCatalog.Gettext
+      import MovieCatalog.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -59,6 +60,8 @@ defmodule MovieCatalog.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import MovieCatalog.Auth, only: [authenticate_user: 2]
     end
   end
 

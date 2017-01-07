@@ -20,11 +20,16 @@ defmodule MovieCatalog.Router do
     get "/", PageController, :index
 
     resources "/registrations", RegistrationController, only: [:new, :create]
-    resources "/movies", MovieController, only: [:new, :create]
 
     get    "/login",  SessionController, :new
     post   "/login",  SessionController, :create
     delete "/logout", SessionController, :delete
+  end
+
+  scope "/manage", MovieCatalog do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/movies", MovieController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.
