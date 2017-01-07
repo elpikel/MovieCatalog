@@ -12,7 +12,7 @@ defmodule MovieCatalog.RegistrationController do
     changeset = User.changeset(%User{}, user_params)
 
     case MovieCatalog.Repo.insert(changeset) do
-      {:ok, _changeset} ->
+      {:ok, changeset} ->
         conn
         |> put_session(:current_user, changeset.id)
         |> put_flash(:info, "Your account was created")

@@ -19,7 +19,6 @@ defmodule MovieCatalog.MovieController do
       |> build_assoc(:movies)
       |> Movie.changeset(movie_params)
 
-    IO.inspect changeset
     case MovieCatalog.Repo.insert(changeset) do
       {:ok, _changeset} ->
         conn
