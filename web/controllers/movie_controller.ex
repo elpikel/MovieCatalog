@@ -6,18 +6,18 @@ defmodule MovieCatalog.MovieController do
   alias MovieCatalog.Movie
   alias MovieCatalog.Session
 
-  def new(conn, params) do
+  def new(conn, _params, user) do
     changeset =
-      MovieCatalog.Session.current_user(conn)
+      user
       |> build_assoc(:movies)
       |> Movie.changeset()
 
     render conn, changeset: changeset
   end
 
-  def create(conn, %{"movie" => movie_params}) do
+  def create(conn, %{"movie" => movie_params}, user) do
     changeset =
-      MovieCatalog.Session.current_user(conn)
+      user
       |> build_assoc(:movies)
       |> Movie.changeset(movie_params)
 
@@ -31,5 +31,10 @@ defmodule MovieCatalog.MovieController do
         |> put_flash(:info, "Unable to publish movie")
         |> render("new.html", changeset: changeset)
     end
+  end
+
+  def action(conn, _) do
+    apply(__MODULE__, action_name(conn),
+      [conn, conn.params, MovieCatalog.Session.current_user(conn)])
   end
 end
