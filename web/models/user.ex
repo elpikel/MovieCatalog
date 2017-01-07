@@ -26,13 +26,9 @@ defmodule MovieCatalog.User do
   defp hash_password(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{plain_password: pass}} ->
-        put_change(changeset, :password, hashed_password(pass))
+        put_change(changeset, :password, Comeonin.Bcrypt.hashpwsalt(pass))
       _ ->
         changeset
     end
   end
-
-  defp hashed_password(nil), do: ""
-  defp hashed_password(""), do: ""
-  defp hashed_password(password), do: Comeonin.Bcrypt.hashpwsalt(password)
 end
