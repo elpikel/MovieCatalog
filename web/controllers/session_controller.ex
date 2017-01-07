@@ -3,6 +3,7 @@ defmodule MovieCatalog.SessionController do
 
   alias MovieCatalog.Session
   alias MovieCatalog.Repo
+  alias MovieCatalog.Auth
 
   def new(conn, _params) do
     render(conn, "new.html")
@@ -12,7 +13,7 @@ defmodule MovieCatalog.SessionController do
     case Session.login(session_params, Repo) do
     {:ok, user} ->
       conn
-      |> put_session(:current_user, user.id)
+      |> Auth.login(user)
       |> put_flash(:info, "Logged in")
       |> redirect(to: "/")
     :error ->
@@ -24,7 +25,7 @@ defmodule MovieCatalog.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_user)
+    |> Auth.logout()
     |> put_flash(:info, "Logged out")
     |> redirect(to: "/")
   end

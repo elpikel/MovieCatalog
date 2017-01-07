@@ -2,6 +2,7 @@ defmodule MovieCatalog.RegistrationController do
   use MovieCatalog.Web, :controller
 
   alias MovieCatalog.User
+  alias MovieCatalog.Auth
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
@@ -12,9 +13,9 @@ defmodule MovieCatalog.RegistrationController do
     changeset = User.changeset(%User{}, user_params)
 
     case MovieCatalog.Repo.insert(changeset) do
-      {:ok, changeset} ->
+      {:ok, user} ->
         conn
-        |> put_session(:current_user, changeset.id)
+        |> Auth.login(user)
         |> put_flash(:info, "Your account was created")
         |> redirect(to: "/")
       {:error, changeset} ->
