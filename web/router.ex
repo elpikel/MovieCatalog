@@ -17,8 +17,9 @@ defmodule MovieCatalog.Router do
   scope "/", MovieCatalog do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", MovieController, :index
 
+    resources "/movies", MovieController, only: [:show]
     resources "/registrations", RegistrationController, only: [:new, :create]
 
     get    "/login",  SessionController, :new

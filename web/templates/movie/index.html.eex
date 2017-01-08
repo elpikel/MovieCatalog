@@ -11,7 +11,7 @@
     <div class="movie">
 
       <div class="movie-image">
-        <a href="#"><span class="play"><span class="name"><%= movie.title %></span></span><img src="<%= movie.cover_path %>" alt="movie" /></a>
+        <a href="<%= movie_path @conn, :show, movie %>"><span class="play"><span class="name"><%= movie.title %></span></span><img src="<%= movie.cover_path %>" alt="movie" /></a>
       </div>
 
       <div class="rating">
