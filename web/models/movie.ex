@@ -7,7 +7,8 @@ defmodule MovieCatalog.Movie do
     field :cover_path, :string
     field :published, Ecto.Date
     belongs_to :user, MovieCatalog.User
-
+    has_many :comments, MovieCatalog.Comment
+    
     timestamps()
   end
 

@@ -11,8 +11,11 @@ defmodule MovieCatalog.MovieController do
     render conn, movies: movies
   end
 
-  def show(conn, %{"id" => id}, _user) do
+  def show(conn, %{"id" => id}, user) do
     movie = MovieCatalog.Repo.get(MovieCatalog.Movie, id)
+
+    movie = Repo.preload(movie, :comments)
+
     render conn, [movie: movie, changeset: Comment.changeset(%Comment{})]
   end
 
@@ -40,6 +43,26 @@ defmodule MovieCatalog.MovieController do
         conn
         |> put_flash(:info, "Unable to publish movie")
         |> render("new.html", changeset: movie)
+    end
+  end
+
+  def add_comment(conn, %{"comment" => comment_params, "movie_id" => movie_id}, user) do
+    comment_params = Map.put(comment_params, "movie_id", movie_id)
+
+    changeset = Comment.changeset(
+      %Comment{user_id: user.id},
+      comment_params
+    )
+    movie = MovieCatalog.Repo.get(MovieCatalog.Movie, movie_id)
+    case MovieCatalog.Repo.insert(changeset) do
+      {:ok, _changeset} ->
+        conn
+        |> put_flash(:info, "Movie was published")
+        |> redirect(to: movie_path(conn, :show, movie))
+      {:error, comment} ->
+        conn
+        |> put_flash(:info, "Unable to publish movie")
+        |> render(conn, "show.html", movie: movie, changeset: changeset)
     end
   end
 

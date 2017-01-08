@@ -14,7 +14,7 @@ defmodule MovieCatalog.Comment do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:message])
-    |> validate_required([:message])
+    |> cast(params, [:message, :user_id, :movie_id])
+    |> validate_required([:message, :user_id, :movie_id])
   end
 end

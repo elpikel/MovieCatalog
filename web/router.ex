@@ -30,8 +30,9 @@ defmodule MovieCatalog.Router do
   scope "/manage", MovieCatalog do
     pipe_through [:browser, :authenticate_user]
 
-    resources "/movies", MovieController, only: [:new, :create]
-    resources "/comments", CommentController, only: [:create]
+    resources "/movies", MovieController, only: [:new, :create] do
+      post "/comment", MovieController, :add_comment, as: :comment
+    end
   end
 
   # Other scopes may use custom stacks.
