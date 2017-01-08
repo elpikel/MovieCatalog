@@ -30,7 +30,7 @@ defmodule MovieCatalog.Auth do
     else
       conn
       |> put_flash(:error, "you must be logged in to access that page")
-      |> redirect(to: Helpers.page_path(conn, :index))
+      |> redirect(to: Helpers.movie_path(conn, :index))
       |> halt()
     end
   end

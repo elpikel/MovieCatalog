@@ -1,1 +1,21 @@
 <%= @movie.title %>
+<%= @movie.description %>
+<img src="<%= @movie.cover_path %>"/>
+
+<%= form_for @changeset, comment_path(@conn, :create), fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label>Comment</label>
+    <%= textarea f, :message, class: "form-control" %>
+    <%= error_tag f, :message %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Publish", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -4,15 +4,16 @@ defmodule MovieCatalog.MovieController do
   plug :authenticate_user when action in [:new, :create]
 
   alias MovieCatalog.Movie
+  alias MovieCatalog.Comment
 
-  def index(conn, params, user) do
+  def index(conn, _params, _user) do
     movies = MovieCatalog.Repo.all(MovieCatalog.Movie)
     render conn, movies: movies
   end
 
-  def show(conn, %{"id" => id}, user) do
+  def show(conn, %{"id" => id}, _user) do
     movie = MovieCatalog.Repo.get(MovieCatalog.Movie, id)
-    render conn, movie: movie
+    render conn, [movie: movie, changeset: Comment.changeset(%Comment{})]
   end
 
   def new(conn, _params, user) do
