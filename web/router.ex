@@ -32,6 +32,7 @@ defmodule MovieCatalog.Router do
 
     resources "/movies", MovieController, only: [:new, :create] do
       post "/comment", MovieController, :add_comment, as: :comment
+      post "/score", MovieController, :add_score, as: :score
     end
   end
 

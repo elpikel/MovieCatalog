@@ -1,9 +1,21 @@
-<%= @movie.title %>
+<%= @movie.title %> <%= @score %>
 <%= @movie.description %>
 <img src="<%= @movie.cover_path %>" width="150px"/>
 
 <%= for comment <- @movie.comments do %>
   <p><%= comment.message %></p>
+<% end %>
+
+<%= form_for @conn, movie_score_path(@conn, :add_score, @movie), [as: :score], fn f -> %>
+  <div class="form-group">
+    <label>Points</label>
+    <%= text_input f, :points, class: "form-control" %>
+    <%= error_tag f, :points %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Score", class: "btn btn-primary" %>
+  </div>
 <% end %>
 
 <%= form_for @changeset, movie_comment_path(@conn, :add_comment, @movie), fn f -> %>
