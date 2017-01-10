@@ -3,7 +3,7 @@ defmodule MovieCatalog.UserTest do
 
   alias MovieCatalog.User
 
-  @valid_attrs %{email: "some content", password: "some content"}
+  @valid_attrs %{email: "some@content", plain_password: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

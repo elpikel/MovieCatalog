@@ -18,7 +18,6 @@ defmodule MovieCatalog.Movie do
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
-    IO.inspect(params)
     struct
     |> cast(params, [:title, :description, :published, :cover_path])
     |> validate_required([:title, :description, :published, :cover_path])

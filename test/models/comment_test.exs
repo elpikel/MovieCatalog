@@ -3,7 +3,7 @@ defmodule MovieCatalog.CommentTest do
 
   alias MovieCatalog.Comment
 
-  @valid_attrs %{message: "some content"}
+  @valid_attrs %{message: "some content", user_id: 1, movie_id: 2}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
