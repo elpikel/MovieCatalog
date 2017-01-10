@@ -26,7 +26,8 @@ defmodule MovieCatalog.ConnCase do
       import Ecto.Query
 
       import MovieCatalog.Router.Helpers
-
+      import MovieCatalog.TestHelpers
+      
       # The default endpoint for testing
       @endpoint MovieCatalog.Endpoint
     end
